@@ -1,9 +1,9 @@
 {
-  "name": "bakend-ferreteria-carlos-2025",
+  "name": "bakend-ferreteria-welvin-2025",
   "version": "1.0.0",
-  "description": "Bakend de ferreteria Carlos",
+  "description": "Bakend-ferreteria-welvin-2025",
   "license": "ISC",
-  "author": "Carlos Eduardo Viachica Guevara",
+  "author": "Welvin Salablanca",
   "type": "module",
   "main": "index.js",
   "scripts": {
