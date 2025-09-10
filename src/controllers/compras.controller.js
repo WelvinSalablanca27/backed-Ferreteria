@@ -30,3 +30,21 @@ export const obtenercompra = async (req, res) => {
     });
   }
 };
+
+
+// Registrar una nueva Compra
+export const registrarCompra = async (req, res) => {
+  try {
+    const { nombre_Compras, id_producto_Compras, cantidad_Compras, precio_unitario_Compras } = req.body;
+    const [result] = await pool.query(
+      'INSERT INTO Compra (nombre_Compras, id_producto_Compras, cantidad_Compras, precio_unitario_Compras) VALUES (?, ?, ?, ?)',
+      [nombre_Compras, id_producto_Compras, cantidad_Compras, precio_unitario_Compras ]
+    );
+    res.status(201).json({ id_compra: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la Compras.',
+      error: error
+    });
+  }
+};

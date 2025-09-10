@@ -7,6 +7,6 @@ router.get('/clientes', obtenerClientes);
 router.get('/cliente/:id_cliente', obtenerCliente);
 
 // Ruta para registrar una nueva Categoría
-router.post('/registrarcategoria', registrarClientes);
+router.post('/registrarClientes', registrarClientes);
 // Rutas
 export default router;

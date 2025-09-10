@@ -9,4 +9,5 @@ router.get('/categoria/:id_categoria', obtenerCategoria);
 
 // Ruta para registrar una nueva Categoría
 router.post('/registrarcategoria', registrarCategoria);
+//Rutas
 export default router;
