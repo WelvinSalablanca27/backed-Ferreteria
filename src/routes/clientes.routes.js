@@ -4,7 +4,7 @@ import { obtenerClientes, obtenerCliente, registrarClientes } from '../controlle
 const router = Router();
 
 router.get('/clientes', obtenerClientes);
-router.get('/categoria/:id_cliente', obtenerCliente);
+router.get('/cliente/:id_cliente', obtenerCliente);
 
 // Ruta para registrar una nueva Categoría
 router.post('/registrarcategoria', registrarClientes);
