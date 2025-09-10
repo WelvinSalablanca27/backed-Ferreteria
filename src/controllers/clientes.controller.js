@@ -31,3 +31,20 @@ export const obtenerCliente = async (req, res) => {
     });
   }
 };
+
+// Registrar una nueva Clientes
+export const registrarClientes = async (req, res) => {
+  try {
+    const { primer_nombre_Clientes , segundo_nombre_Clientes, primer_apellido_Clientes, segundo_apellido_Clientes, celular_Clientes, direccion_Clientes, cedula_Clientes } = req.body;
+    const [result] = await pool.query(
+      'INSERT INTO Clientes (primer_nombre_Clientes , segundo_nombre_Clientes, primer_apellido_Clientes, segundo_apellido_Clientes, celular_Clientes, direccion_Clientes, cedula_Clientes ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [primer_nombre_Clientes , segundo_nombre_Clientes, primer_apellido_Clientes, segundo_apellido_Clientes, celular_Clientes, direccion_Clientes, cedula_Clientes]
+    );
+    res.status(201).json({ id_cliente: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la Clientes.',
+      error: error
+    });
+  }
+  };
