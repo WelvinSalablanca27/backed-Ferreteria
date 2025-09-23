@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { obtenerCompras, obtenerCompra, registrarCompra } from '../controllers/compras.controller.js';
+import { obtenerCompras, obtenercompra, registrarCompra } from '../controllers/compras.controller.js';
 
 const router = Router();
 
 router.get('/compras', obtenerCompras);
 
 // Rutas
-router.get('/compras/:id_compra', obtenerCompra);
+router.get('/compras/:id_compra', obtenercompra);
 
-// Ruta para registrar una nueva Categoría
+// Ruta para registrar una nueva Compras
 router.post('/registrarCompra', registrarCompra);
 
 // Rutas
