@@ -48,3 +48,27 @@ export const registrarClientes = async (req, res) => {
     });
   }
   };
+
+  
+// Eliminar una cliente por su ID 
+export const eliminarCliente = async (req, res) =>  {
+  try {
+    const id_cliente = req.params.id_cliente;
+    const [result] = await pool.query('DELETE FROM cliente WHERE id_cliente= ?', [id_cliente]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        mensaje: `Error al eliminar la cliente. ID ${id_cliente} no fue encontrado.`
+      });
+    }
+
+    res.status(200).json({
+      mensaje: `La cliente con ID ${id_cliente} fue eliminada correctamente.`
+    });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al eliminar la cliente.',
+      error: error
+    });
+  }
+};

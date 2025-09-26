@@ -1,9 +1,19 @@
 import { Router } from 'express';
-import { obtenerEmpleados } from '../controllers/empleados.controller.js';
+import { obtenerEmpleados, obtenerEmpleado, registrarEmpleado, eliminarEmpleado } from '../controllers/empleados.controller.js';
 
 const router = Router();
 
 router.get('/empleados', obtenerEmpleados);
 
+
 // Rutas
+router.get('/empleados/:id_empleado', obtenerEmpleado);
+
+// Ruta para registrar una nueva Empleado
+router.post('/registrarEmpleado', registrarEmpleado);
+
+//Rutas
+router.delete('/eliminarEmpleado/:id_empleado', eliminarEmpleado);
+
+
 export default router;

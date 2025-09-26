@@ -12,3 +12,61 @@ export const obtenerProductos = async (req, res) => {
     });
   }
 };
+
+// Obtener una Producto por su ID
+export const obtenerProducto = async (req, res) => {
+  try {
+    const id_producto = req.params.id_producto;
+    const [result] = await pool.query('SELECT * FROM productos WHERE id_producto= ?', [req.params.id_producto])
+    if (result.length <= 0) {
+      return res.status(404).json({
+        mensaje: `Error al leer los datos. ID ${id_producto} no encontrado.`
+      });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al leer los datos de las Productos.'
+    });
+  }
+};
+
+// Registrar una nueva Compra
+export const registrarCompra = async (req, res) => {
+  try {
+    const { nombre_producto, descripcion_producto, id_categoria, precio_unitario, stock, imagen } = req.body;
+    const [result] = await pool.query(
+      'INSERT INTO Productos (nombre_producto, descripcion_producto, id_categoria, precio_unitario, stock, imagen) VALUES (?, ?, ?, ?, ?, ?)',
+      [ inombre_producto, descripcion_producto, id_categoria, precio_unitario, stock, imagen ]
+    );
+    res.status(201).json({ id_producto: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la Productos.',
+      error: error
+    });
+  }
+};
+
+// Eliminar una Productos por su ID 
+export const eliminarProducto = async (req, res) =>  {
+  try {
+    const id_producto = req.params.id_producto;
+    const [result] = await pool.query('DELETE FROM productos WHERE id_producto= ?', [id_producto]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        mensaje: `Error al eliminar la Producto. ID ${id_producto} no fue encontrado.`
+      });
+    }
+
+    res.status(200).json({
+      mensaje: `La Productos con ID ${id_producto} fue eliminada correctamente.`
+    });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al eliminar la Producto.',
+      error: error
+    });
+  }
+};

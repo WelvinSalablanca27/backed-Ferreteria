@@ -12,3 +12,61 @@ export const obtenerUsuarios = async (req, res) => {
     });
   }
 };
+
+// Obtener una Usuario por su ID
+export const obtenerUsuario = async (req, res) => {
+  try {
+    const id_usuario = req.params.id_usuario;
+    const [result] = await pool.query('SELECT * FROM usuarios WHERE id_usuario= ?', [req.params.id_usuario])
+    if (result.length <= 0) {
+      return res.status(404).json({
+        mensaje: `Error al leer los datos. ID ${id_usuario} no encontrado.`
+      });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al leer los datos de las usuarios.'
+    });
+  }
+};
+
+// Registrar una nueva Compra
+export const registrarUsuario = async (req, res) => {
+  try {
+    const { usuario, contraseña } = req.body;
+    const [result] = await pool.query(
+      'INSERT INTO Usuarios (usuario, contraseña) VALUES (?, ?)',
+      [ usuario, contraseña ]
+    );
+    res.status(201).json({ id_usuario: result.insertId });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al registrar la usuarios.',
+      error: error
+    });
+  }
+};
+
+// Eliminar una Usuario por su ID 
+export const eliminarUsuario = async (req, res) =>  {
+  try {
+    const id_usuario = req.params.id_usuario;
+    const [result] = await pool.query('DELETE FROM usuarios WHERE id_usuario= ?', [id_usuario]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        mensaje: `Error al eliminar la usuarios. ID ${id_usuario} no fue encontrado.`
+      });
+    }
+
+    res.status(200).json({
+      mensaje: `La usuarios con ID ${id_usuario} fue eliminada correctamente.`
+    });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: 'Ha ocurrido un error al eliminar la usuarios.',
+      error: error
+    });
+  }
+};
